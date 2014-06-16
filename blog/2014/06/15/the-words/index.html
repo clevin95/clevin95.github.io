@@ -5,7 +5,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Carter's Octopress Blog</title>
+  <title>The Words - Carter's Octopress Blog</title>
   <meta name="author" content="Carter">
 
   
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://clevin95.github.io">
+  <link rel="canonical" href="http://clevin95.github.io/blog/2014/06/15/the-words">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="Carter's Octopress Blog" type="application/atom+xml">
@@ -63,15 +63,12 @@
 </nav>
   <div id="main">
     <div id="content">
-      <div class="blog-index">
+      <div>
+<article class="hentry" role="article">
   
-  
-  
-    <article>
-      
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2014/06/15/the-words/">The Words</a></h1>
+      <h1 class="entry-title">The Words</h1>
     
     
       <p class="meta">
@@ -94,7 +91,7 @@
   </header>
 
 
-  <div class="entry-content"><p>This past week I spent a lot of time developing and perfecting an algorithm to find all english dictionary words that can be formed from a given set of letters. I started out using a simple recursive algorithm which found each permutation for a set of letters and checked them against a dictionary. This solution was slow and caused a stack overflow for sets of letters over 20. Eventually I was able to develope a permutation generating algorithm which worked allongside the dictionary look up algorithm. This more sopisitcated aproach was able to procces every letter of the alphabet times 65 (16,900 letters) in 8.5 minutes with only using a max of 500mb of live memory. I’ve outlined my process in detail bellow.</p>
+<div class="entry-content"><p>This past week I spent a lot of time developing and perfecting an algorithm to find all english dictionary words that can be formed from a given set of letters. I started out using a simple recursive algorithm which found each permutation for a set of letters and checked them against a dictionary. This solution was slow and caused a stack overflow for sets of letters over 20. Eventually I was able to develope a permutation generating algorithm which worked allongside the dictionary look up algorithm. This more sopisitcated aproach was able to procces every letter of the alphabet times 65 (16,900 letters) in 8.5 minutes with only using a max of 500mb of live memory. I’ve outlined my process in detail bellow.</p>
 
 <p>My first function focussed entirely on generating permutations and checking each permutation against the dictionary:
 //function returns an array of words that can be created using the letters inputed to &ldquo;letters to add&rdquo;
@@ -347,22 +344,16 @@ return runningLongest;
 
 <p>}</p>
 </div>
-  
-  
 
 
-    </article>
-  
-  
-    <article>
+  <footer>
+    <p class="meta">
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/06/04/first-post/">First Post</a></h1>
-    
-    
-      <p class="meta">
-        
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Carter</span></span>
+
+      
 
 
 
@@ -374,27 +365,32 @@ return runningLongest;
   
 
 
-<time datetime="2014-06-04T13:15:10-04:00" pubdate data-updated="true">Jun 4<span>th</span>, 2014</time>
-        
-      </p>
+<time datetime="2014-06-15T21:43:20-04:00" pubdate data-updated="true">Jun 15<span>th</span>, 2014</time>
+      
+
+
+    </p>
     
-  </header>
-
-
-  <div class="entry-content">
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://clevin95.github.io/blog/2014/06/15/the-words/" data-via="" data-counturl="http://clevin95.github.io/blog/2014/06/15/the-words/" >Tweet</a>
+  
+  
+  
 </div>
-  
-  
 
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2014/06/04/first-post/" title="Previous Post: First post">&laquo; First post</a>
+      
+      
+    </p>
+  </footer>
+</article>
 
-    </article>
-  
-  <div class="pagination">
-    
-    <a href="/blog/archives">Blog Archives</a>
-    
-  </div>
 </div>
+
 <aside class="sidebar">
   
     <section>
@@ -418,6 +414,7 @@ return runningLongest;
 
   
 </aside>
+
 
     </div>
   </div>
