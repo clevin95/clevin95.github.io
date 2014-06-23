@@ -9,7 +9,7 @@
   <meta name="author" content="Carter">
 
   
-  <meta name="description" content="This past week I spent a lot of time developing and perfecting an algorithm to find all english dictionary words that can be formed from a given set &hellip;">
+  <meta name="description" content="At WWDC, 2014, apple unveiled iOS 8 and Xcode 6. For developers the big news out of the conference was apples new programming language, &ldquo;swift &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -65,6 +65,44 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/06/23/making-custom-ios-keyboards/">Making Custom iOS Keyboards</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-23T15:28:56-04:00" pubdate data-updated="true">Jun 23<span>rd</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>At WWDC, 2014, apple unveiled iOS 8 and Xcode 6. For developers the big news out of the conference was apples new programming language, &ldquo;swift.&rdquo; However the new language may have overshadowed some even more groundbreaking changes introduced in the new operating system. Among the biggest changes, likely to greatly effect the way in which apps are developed and used, was apple’s introduction of &ldquo;extensibility.&rdquo; Essentially extensibility means that apps will now be able to communicate and build off of existing UI&rsquo;s. This new stance on allowing apps to build off each other takes a sharp turn from the previously used technique of &ldquo;Sandboxing.&rdquo; Sandboxing was a security measure which prevented programs from interacting by giving each app a confined area in memory and CPU. The ultimate goal of Sanboxing was to prevent untrusted third party apps from interacting with and harming the host software. This security, however, won&rsquo;t all be lost with apples introduction of extensibility. Apps still must ask for the users permission when doing such things as accessing the internet. Furthermore there still are many more restrictions put on iPhone development than there are for most other mobile operating systems, like Android.</p>
+
+<p>One of the most obvious new capabilities introduced to developers with extensibility is the ability to create custom global keyboards. This past weekend I spent some time trying to figure out how I could make my own custom keyboard. The first few steps were very straightforwardly build into Xcode. The first thing I did was create a new target for my project (File &ndash;> New &ndash;> Target). After selecting new target I navigated to the extensions tab where I found an option for &ldquo;custom keyboard.&rdquo; Other extensions available were &ldquo;Action Extension&rdquo;, &ldquo;Document Picker&rdquo;, &ldquo;Photo Editing Extension&rdquo;, &ldquo;Share Extension&rdquo;, and &ldquo;Today Extension.&rdquo; Next I went to the .plist for my new custom keyboard, its important to note that you both your main project and new keyboard extension now have plists and it is important to select the keyboard extension’s property list. In order to access properties such as language and text alignment for your new keyboard you need to right click on the plist file and select the &ldquo;source code&rdquo; option. The plist will now be a markdown file in which you can set the settings of your keyboard.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -400,6 +438,10 @@ return runningLongest;
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/06/23/making-custom-ios-keyboards/">Making Custom iOS Keyboards</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2014/06/15/the-words/">The Words</a>
