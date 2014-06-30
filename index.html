@@ -9,7 +9,7 @@
   <meta name="author" content="Carter">
 
   
-  <meta name="description" content="At WWDC, 2014, apple unveiled iOS 8 and Xcode 6. For developers the big news out of the conference was apples new programming language, &ldquo;swift &hellip;">
+  <meta name="description" content="Intro to MKMapKit If you have a smart phone it&rsquo;s likely that you&rsquo;ve interacted with apps which employ a map as part of their UI. While &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -65,6 +65,73 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/06/29/using-map-view/">Using Map View</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-29T21:26:06-04:00" pubdate data-updated="true">Jun 29<span>th</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Intro to MKMapKit</p>
+
+<p>If you have a smart phone it&rsquo;s likely that you&rsquo;ve interacted with apps which employ a map as part of their UI. While the maps are impressive and appear complicated to implement, apple has made adding maps incredibly easy by dealing with most of the functionality, such as scrolling and zooming, themselves. The first step when adding a map object to your project is to add the MapKit framework to your binary libraries. The way to do this is by going to your main project selecting the build phases tab and pressing the plus button in the Link Binary With Libraries drop down. You&rsquo;ll then want to search for MapKit.framework and add it. You&rsquo;ll now be able to import &lt;MapKit/MapKit.h> to all the view controller’s you wish to add a map.</p>
+
+<p>The next step is to add a map view object. You can ether do this by dragging the map view object into your story board or by alloc initing it in the view did load. You now should have a scrollable and zoomable map in your view. Now that you have a map in your project you can do such things as track the user’s location and drop pins.</p>
+
+<p>To track location you will need to import the CoreLoaction framework in the same way in which you imported MapKit. You then can track the users movement using the following code:</p>
+
+<ul>
+<li><p>(void)locationManager:(CLLocationManager <em>)manager didFailWithError:(NSError </em>)error
+{
+  NSLog(@&ldquo;didFailWithError: %@&rdquo;, error);
+  UIAlertView *errorAlert = [[UIAlertView alloc]
+                             initWithTitle:@&ldquo;Error&rdquo; message:@&ldquo;Failed to Get Your Location&rdquo; delegate:nil cancelButtonTitle:@&ldquo;OK&rdquo; otherButtonTitles:nil];
+  [errorAlert show];
+}</p></li>
+<li><p>(void)locationManager:(CLLocationManager <em>)manager didUpdateToLocation:(CLLocation </em>)newLocation fromLocation:(CLLocation *)oldLocation
+{</p></li>
+</ul>
+
+
+<p>}</p>
+
+<p>Now that you have the users location tracked you’ll want to be able to drop a pin. To drop a pin at the users current location you can use the following code</p>
+
+<p>MKPointAnnotation *point = [[MKPointAnnotation alloc] init];
+point.coordinate = currentLocation.coordinate;
+[self.currentLocationMap addAnnotation:point];</p>
+
+<p>You can also remove pins by writing: 
+NSMutableArray *pins = [[NSMutableArray alloc] initWithArray:[self.currentLocationMap annotations]];
+[self.currentLocationMap removeAnnotations:pins];</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -438,6 +505,10 @@ return runningLongest;
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/06/29/using-map-view/">Using Map View</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2014/06/23/making-custom-ios-keyboards/">Making Custom iOS Keyboards</a>

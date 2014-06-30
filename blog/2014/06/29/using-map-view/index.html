@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Making Custom iOS Keyboards - Carter's Octopress Blog</title>
+  <title>Using Map View - Carter's Octopress Blog</title>
   <meta name="author" content="Carter">
 
   
-  <meta name="description" content="At WWDC, 2014, apple unveiled iOS 8 and Xcode 6. For developers the big news out of the conference was apples new programming language, &ldquo;swift &hellip;">
+  <meta name="description" content="Intro to MKMapKit If you have a smart phone it&rsquo;s likely that you&rsquo;ve interacted with apps which employ a map as part of their UI. While &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://clevin95.github.io/blog/2014/06/23/making-custom-ios-keyboards">
+  <link rel="canonical" href="http://clevin95.github.io/blog/2014/06/29/using-map-view">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="Carter's Octopress Blog" type="application/atom+xml">
@@ -68,7 +68,7 @@
   
   <header>
     
-      <h1 class="entry-title">Making Custom iOS Keyboards</h1>
+      <h1 class="entry-title">Using Map View</h1>
     
     
       <p class="meta">
@@ -84,16 +84,45 @@
   
 
 
-<time datetime="2014-06-23T15:28:56-04:00" pubdate data-updated="true">Jun 23<span>rd</span>, 2014</time>
+<time datetime="2014-06-29T21:26:06-04:00" pubdate data-updated="true">Jun 29<span>th</span>, 2014</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>At WWDC, 2014, apple unveiled iOS 8 and Xcode 6. For developers the big news out of the conference was apples new programming language, &ldquo;swift.&rdquo; However the new language may have overshadowed some even more groundbreaking changes introduced in the new operating system. Among the biggest changes, likely to greatly effect the way in which apps are developed and used, was apple’s introduction of &ldquo;extensibility.&rdquo; Essentially extensibility means that apps will now be able to communicate and build off of existing UI&rsquo;s. This new stance on allowing apps to build off each other takes a sharp turn from the previously used technique of &ldquo;Sandboxing.&rdquo; Sandboxing was a security measure which prevented programs from interacting by giving each app a confined area in memory and CPU. The ultimate goal of Sanboxing was to prevent untrusted third party apps from interacting with and harming the host software. This security, however, won&rsquo;t all be lost with apples introduction of extensibility. Apps still must ask for the users permission when doing such things as accessing the internet. Furthermore there still are many more restrictions put on iPhone development than there are for most other mobile operating systems, like Android.</p>
+<div class="entry-content"><p>Intro to MKMapKit</p>
 
-<p>One of the most obvious new capabilities introduced to developers with extensibility is the ability to create custom global keyboards. This past weekend I spent some time trying to figure out how I could make my own custom keyboard. The first few steps were very straightforwardly build into Xcode. The first thing I did was create a new target for my project (File &ndash;> New &ndash;> Target). After selecting new target I navigated to the extensions tab where I found an option for &ldquo;custom keyboard.&rdquo; Other extensions available were &ldquo;Action Extension&rdquo;, &ldquo;Document Picker&rdquo;, &ldquo;Photo Editing Extension&rdquo;, &ldquo;Share Extension&rdquo;, and &ldquo;Today Extension.&rdquo; Next I went to the .plist for my new custom keyboard, its important to note that you both your main project and new keyboard extension now have plists and it is important to select the keyboard extension’s property list. In order to access properties such as language and text alignment for your new keyboard you need to right click on the plist file and select the &ldquo;source code&rdquo; option. The plist will now be a markdown file in which you can set the settings of your keyboard.</p>
+<p>If you have a smart phone it&rsquo;s likely that you&rsquo;ve interacted with apps which employ a map as part of their UI. While the maps are impressive and appear complicated to implement, apple has made adding maps incredibly easy by dealing with most of the functionality, such as scrolling and zooming, themselves. The first step when adding a map object to your project is to add the MapKit framework to your binary libraries. The way to do this is by going to your main project selecting the build phases tab and pressing the plus button in the Link Binary With Libraries drop down. You&rsquo;ll then want to search for MapKit.framework and add it. You&rsquo;ll now be able to import &lt;MapKit/MapKit.h> to all the view controller’s you wish to add a map.</p>
+
+<p>The next step is to add a map view object. You can ether do this by dragging the map view object into your story board or by alloc initing it in the view did load. You now should have a scrollable and zoomable map in your view. Now that you have a map in your project you can do such things as track the user’s location and drop pins.</p>
+
+<p>To track location you will need to import the CoreLoaction framework in the same way in which you imported MapKit. You then can track the users movement using the following code:</p>
+
+<ul>
+<li><p>(void)locationManager:(CLLocationManager <em>)manager didFailWithError:(NSError </em>)error
+{
+  NSLog(@&ldquo;didFailWithError: %@&rdquo;, error);
+  UIAlertView *errorAlert = [[UIAlertView alloc]
+                             initWithTitle:@&ldquo;Error&rdquo; message:@&ldquo;Failed to Get Your Location&rdquo; delegate:nil cancelButtonTitle:@&ldquo;OK&rdquo; otherButtonTitles:nil];
+  [errorAlert show];
+}</p></li>
+<li><p>(void)locationManager:(CLLocationManager <em>)manager didUpdateToLocation:(CLLocation </em>)newLocation fromLocation:(CLLocation *)oldLocation
+{</p></li>
+</ul>
+
+
+<p>}</p>
+
+<p>Now that you have the users location tracked you’ll want to be able to drop a pin. To drop a pin at the users current location you can use the following code</p>
+
+<p>MKPointAnnotation *point = [[MKPointAnnotation alloc] init];
+point.coordinate = currentLocation.coordinate;
+[self.currentLocationMap addAnnotation:point];</p>
+
+<p>You can also remove pins by writing: 
+NSMutableArray *pins = [[NSMutableArray alloc] initWithArray:[self.currentLocationMap annotations]];
+[self.currentLocationMap removeAnnotations:pins];</p>
 </div>
 
 
@@ -116,7 +145,7 @@
   
 
 
-<time datetime="2014-06-23T15:28:56-04:00" pubdate data-updated="true">Jun 23<span>rd</span>, 2014</time>
+<time datetime="2014-06-29T21:26:06-04:00" pubdate data-updated="true">Jun 29<span>th</span>, 2014</time>
       
 
 
@@ -124,7 +153,7 @@
     
       <div class="sharing">
   
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://clevin95.github.io/blog/2014/06/23/making-custom-ios-keyboards/" data-via="" data-counturl="http://clevin95.github.io/blog/2014/06/23/making-custom-ios-keyboards/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://clevin95.github.io/blog/2014/06/29/using-map-view/" data-via="" data-counturl="http://clevin95.github.io/blog/2014/06/29/using-map-view/" >Tweet</a>
   
   
   
@@ -133,10 +162,8 @@
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2014/06/15/the-words/" title="Previous Post: The Words">&laquo; The Words</a>
+        <a class="basic-alignment left" href="/blog/2014/06/23/making-custom-ios-keyboards/" title="Previous Post: Making Custom iOS Keyboards">&laquo; Making Custom iOS Keyboards</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2014/06/29/using-map-view/" title="Next Post: Using Map View">Using Map View &raquo;</a>
       
     </p>
   </footer>
