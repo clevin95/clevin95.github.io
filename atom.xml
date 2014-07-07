@@ -4,7 +4,7 @@
   <title><![CDATA[Carter's Octopress Blog]]></title>
   <link href="http://clevin95.github.io/atom.xml" rel="self"/>
   <link href="http://clevin95.github.io/"/>
-  <updated>2014-06-29T21:27:22-04:00</updated>
+  <updated>2014-07-06T22:01:55-04:00</updated>
   <id>http://clevin95.github.io/</id>
   <author>
     <name><![CDATA[Carter]]></name>
@@ -12,6 +12,122 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Making a Drop Down Menu With UIDynamics]]></title>
+    <link href="http://clevin95.github.io/blog/2014/07/06/making-a-drop-down-menu-with-uidynamics/"/>
+    <updated>2014-07-06T22:01:19-04:00</updated>
+    <id>http://clevin95.github.io/blog/2014/07/06/making-a-drop-down-menu-with-uidynamics</id>
+    <content type="html"><![CDATA[<p>Making a slide down menu</p>
+
+<p>This weekend I spent a lot of time playing around with core dynamics. Core dynamics is a physics engine which comes with ios7, enabling you to do things like add gravity and mass to your views. To start using uidynamics all you need to do is add a uidynamicanimator property to your view controller. You&rsquo;ll then need to aloc init the animator with the following line:
+self.animator = [[UIDynamicAnimator alloc]initWithReferenceView:self.view];
+In this customized initializer the reference view represents the frame which all animations will take place in relation to. Thus if the reference view were moving, all animation would move in relation. Once the animator has been alloc inited the syntax for adding forces is fairly straightforward. If you wanted to add a push force to a view for instance you would write:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>UIPushBehavior *push = [[UIPushBehavior alloc]initWithItems:@[self.moveView] mode:UIPushBehaviorModeContinuous];
+</span><span class='line'>push.pushDirection = CGVectorMake(1, 0);
+</span><span class='line'>[self.animator addBehavior:self.push];
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>In this particular example the self.moveView would be pushed off the screen. Because the mode was set to UIPushBehaviorModeContinuous the speed of the view will increase. This is becuase a constant force results in a constant acceloration. If you wanted a constant velocity you could set the mode to UIPushBehaviorModeInstantaneous or use the following snippet:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>UIDynamicItemBehavior *velocityBehavior = [[UIDynamicItemBehavior alloc]initWithItems:@[self.menuView]];
+</span><span class='line'>[velocityBehavior addLinearVelocity:velocity forItem:self.menuView];
+</span><span class='line'>[self.animator addBehavior:velocityBehavior];</span></code></pre></td></tr></table></div></figure>
+
+
+<p>After aquainting myself with the basics of uidynamic animator I set out to create a dragable drop down menu similar to the controll panel in iOS7. To begin I created a uiview to which I added a pangesturerecogniser which delegated to the method handlePan:. In my handlePan method i wrote the following</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>- (void)handlePan:(UIPanGestureRecognizer *)gesture
+</span><span class='line'>{
+</span><span class='line'>    CGPoint currentTouchPosition = [gesture locationInView:self.view];
+</span><span class='line'>    CGPoint velocity = [gesture velocityInView:gesture.view.superview];
+</span><span class='line'>    velocity.x  = 0;
+</span><span class='line'>    if (gesture.state == UIGestureRecognizerStateBegan){
+</span><span class='line'>        [self.animator removeAllBehaviors];
+</span><span class='line'>    }else if (gesture.state == UIGestureRecognizerStateChanged)
+</span><span class='line'>    {
+</span><span class='line'>        if (self.menuView.frame.origin.y + (currentTouchPosition.y - self.previousMenuPosition.y) &lt;= 0){
+</span><span class='line'>            [self updateMenuAndSearchAlpha];
+</span><span class='line'>            CGRect newMenuPosition = CGRectOffset(self.menuView.frame, 0, (currentTouchPosition.y - self.previousMenuPosition.y));
+</span><span class='line'>            self.menuView.frame = newMenuPosition;
+</span><span class='line'>        }
+</span><span class='line'>    }
+</span><span class='line'>    else if (gesture.state == UIGestureRecognizerStateEnded) {
+</span><span class='line'>        UIDynamicItemBehavior *velocityBehavior = [[UIDynamicItemBehavior alloc]initWithItems:@[self.menuView]];
+</span><span class='line'>        [velocityBehavior addLinearVelocity:velocity forItem:self.menuView];
+</span><span class='line'>        [self.animator addBehavior:velocityBehavior];
+</span><span class='line'>        if (velocity.y &gt; 0 ){
+</span><span class='line'>            [self fadeOutViews:@[self.searchAndFilterBar]];  
+</span><span class='line'>        }else{
+</span><span class='line'>            [self fadeInViews:@[self.searchAndFilterBar]];
+</span><span class='line'>        }
+</span><span class='line'>        [self.topBoundry addBoundaryWithIdentifier:@"topBarrier"
+</span><span class='line'>                                         fromPoint:self.topLeft
+</span><span class='line'>                                           toPoint:self.topRight];
+</span><span class='line'>        [self.topBoundry addBoundaryWithIdentifier:@"bottomBarrier"
+</span><span class='line'>                                         fromPoint:self.bottomLeft
+</span><span class='line'>                                           toPoint:self.bottomRight];
+</span><span class='line'>        [self.animator addBehavior:self.topBoundry];
+</span><span class='line'>        self.push.pushDirection = CGVectorMake(velocity.x, velocity.y);
+</span><span class='line'>        [self.animator addBehavior:self.push];
+</span><span class='line'>        velocityBehavior.action = ^{
+</span><span class='line'>            [self updateMenuAlpha];
+</span><span class='line'>        };
+</span><span class='line'>    }
+</span><span class='line'>    self.previousMenuPosition = currentTouchPosition;
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Essentially the method works by attaching the movement of the view along the Y axis to the movement of the pan gesture. Then once the gesture has stopped the view is given an initial velocity equal to the velocity of gesture as the touch ended and a force in the same direction. It is necessary to give the view a velocity as well as a push so that the view moves in one continuous motion.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Using Map View]]></title>
