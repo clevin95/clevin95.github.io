@@ -4,7 +4,7 @@
   <title><![CDATA[Carter's Octopress Blog]]></title>
   <link href="http://clevin95.github.io/atom.xml" rel="self"/>
   <link href="http://clevin95.github.io/"/>
-  <updated>2014-07-06T22:01:55-04:00</updated>
+  <updated>2014-07-13T21:28:48-04:00</updated>
   <id>http://clevin95.github.io/</id>
   <author>
     <name><![CDATA[Carter]]></name>
@@ -12,6 +12,19 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[The Magic of Parse]]></title>
+    <link href="http://clevin95.github.io/blog/2014/07/13/the-magic-of-parse/"/>
+    <updated>2014-07-13T20:06:31-04:00</updated>
+    <id>http://clevin95.github.io/blog/2014/07/13/the-magic-of-parse</id>
+    <content type="html"><![CDATA[<p>Recently I ran into a pretty common road block for most begginer iOS developers; I wanted to share information between a comunity of users but only knew how to save information using core data. After doing some reading I discovered that what I would need was some kind of cloud database to which I could push data and then pull back down later. Luckly I came across a great service called parse, which essentially abstracted all the complexities away from cloud based storage and turned it into a few lines of easy to read objective C code. With parse I was able to easily save oobjects to cloud and then pull them back down with simply one line query requests. Using parse I was able to create user acounts with distinct information and have users make posts that could then be view by other users remotely. While parse is great and free up untill your getting 3 requests per second (which is a ton) I didnt feal comfortable with having so much &lsquo;magic&rsquo; in my app. I decided to dig deaper to get a better understanding of what was going on behind parse.</p>
+
+<p>After diging deaper into cloud based storage I was able to break down the procces of creating your own cloud backend into three distinct phases. The first step is to build a web app which you can hit remotely with an api. To do this you&rsquo;ll need to learn the basics of a web framework such as ruby on rails or node.js. This app will have to be set up to receive POST requests contaiing the data you would like to save and also handle GET requests which will return the information specified in the url. After you&rsquo;ve set up your app you can push it to a cloud hosting platform such as Heroku or Engine Yard. Next, you&rsquo;ll need to set up a web database. When it comes to the details of what makes certain batabases preferable to others I have very litle insight. I&rsquo;ve looked around an found a few blogs with highlight the different features of the major databases. Here is one verry good resourse I came accross:
+<a href="http://kkovacs.eu/cassandra-vs-mongodb-vs-couchdb-vs-redis">http://kkovacs.eu/cassandra-vs-mongodb-vs-couchdb-vs-redis</a>
+once you&rsquo;ve got your app entirely hooked up to the database your all ready to start hitting the web app&rsquo;s api from within your iOS app</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Making a Drop Down Menu With UIDynamics]]></title>
