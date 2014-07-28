@@ -4,7 +4,7 @@
   <title><![CDATA[Carter's Octopress Blog]]></title>
   <link href="http://clevin95.github.io/atom.xml" rel="self"/>
   <link href="http://clevin95.github.io/"/>
-  <updated>2014-07-28T09:05:49-04:00</updated>
+  <updated>2014-07-28T09:07:31-04:00</updated>
   <id>http://clevin95.github.io/</id>
   <author>
     <name><![CDATA[Carter]]></name>
@@ -20,8 +20,10 @@
     <id>http://clevin95.github.io/blog/2014/07/28/container-controllers</id>
     <content type="html"><![CDATA[<p>Container View Controllers</p>
 
-<pre><code>I was working on a project recently where I had only one screen which was responsible for performing several different tasks. As I programmed, this screen’s view controller file quickly became massive and hard to read. Looking for a solution to this problem I came across container view controllers. Container view controllers allow you to separate the logic of a view controller and smaller more modular chunks. As of iOS 6 you can now drag out a container view object onto your storyboard. The container will effectively create a window to another view controller. You will then be able to create another view controller subclass where you can put all the logic for that separate view. A view controller can have any number of container view’s inside of it. Each of these nested view controllers are considered children of the the parent view controller. 
-</code></pre>
+<ul>
+<li>I was working on a project recently where I had only one screen which was responsible for performing several different tasks. As I programmed, this screen’s view controller file quickly became massive and hard to read. Looking for a solution to this problem I came across container view controllers. Container view controllers allow you to separate the logic of a view controller and smaller more modular chunks. As of iOS 6 you can now drag out a container view object onto your storyboard. The container will effectively create a window to another view controller. You will then be able to create another view controller subclass where you can put all the logic for that separate view. A view controller can have any number of container view’s inside of it. Each of these nested view controllers are considered children of the the parent view controller.</li>
+</ul>
+
 
 <p>Important features:</p>
 
