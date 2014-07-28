@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>The Magic of Parse - Carter's Octopress Blog</title>
+  <title>Container Controllers - Carter's Octopress Blog</title>
   <meta name="author" content="Carter">
 
   
-  <meta name="description" content="Recently I ran into a pretty common road block for most begginer iOS developers; I wanted to share information between a comunity of users but only &hellip;">
+  <meta name="description" content="Container View Controllers I was working on a project recently where I had only one screen which was responsible for performing several different &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://clevin95.github.io/blog/2014/07/13/the-magic-of-parse">
+  <link rel="canonical" href="http://clevin95.github.io/blog/2014/07/28/container-controllers">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="Carter's Octopress Blog" type="application/atom+xml">
@@ -68,7 +68,7 @@
   
   <header>
     
-      <h1 class="entry-title">The Magic of Parse</h1>
+      <h1 class="entry-title">Container Controllers</h1>
     
     
       <p class="meta">
@@ -84,18 +84,31 @@
   
 
 
-<time datetime="2014-07-13T20:06:31-04:00" pubdate data-updated="true">Jul 13<span>th</span>, 2014</time>
+<time datetime="2014-07-28T09:04:16-04:00" pubdate data-updated="true">Jul 28<span>th</span>, 2014</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>Recently I ran into a pretty common road block for most begginer iOS developers; I wanted to share information between a comunity of users but only knew how to save information using core data. After doing some reading I discovered that what I would need was some kind of cloud database to which I could push data and then pull back down later. Luckly I came across a great service called parse, which essentially abstracted all the complexities away from cloud based storage and turned it into a few lines of easy to read objective C code. With parse I was able to easily save oobjects to cloud and then pull them back down with simply one line query requests. Using parse I was able to create user acounts with distinct information and have users make posts that could then be view by other users remotely. While parse is great and free up untill your getting 3 requests per second (which is a ton) I didnt feal comfortable with having so much &lsquo;magic&rsquo; in my app. I decided to dig deaper to get a better understanding of what was going on behind parse.</p>
+<div class="entry-content"><p>Container View Controllers</p>
 
-<p>After diging deaper into cloud based storage I was able to break down the procces of creating your own cloud backend into three distinct phases. The first step is to build a web app which you can hit remotely with an api. To do this you&rsquo;ll need to learn the basics of a web framework such as ruby on rails or node.js. This app will have to be set up to receive POST requests contaiing the data you would like to save and also handle GET requests which will return the information specified in the url. After you&rsquo;ve set up your app you can push it to a cloud hosting platform such as Heroku or Engine Yard. Next, you&rsquo;ll need to set up a web database. When it comes to the details of what makes certain batabases preferable to others I have very litle insight. I&rsquo;ve looked around an found a few blogs with highlight the different features of the major databases. Here is one verry good resourse I came accross:
-<a href="http://kkovacs.eu/cassandra-vs-mongodb-vs-couchdb-vs-redis">http://kkovacs.eu/cassandra-vs-mongodb-vs-couchdb-vs-redis</a>
-once you&rsquo;ve got your app entirely hooked up to the database your all ready to start hitting the web app&rsquo;s api from within your iOS app</p>
+<pre><code>I was working on a project recently where I had only one screen which was responsible for performing several different tasks. As I programmed, this screen’s view controller file quickly became massive and hard to read. Looking for a solution to this problem I came across container view controllers. Container view controllers allow you to separate the logic of a view controller and smaller more modular chunks. As of iOS 6 you can now drag out a container view object onto your storyboard. The container will effectively create a window to another view controller. You will then be able to create another view controller subclass where you can put all the logic for that separate view. A view controller can have any number of container view’s inside of it. Each of these nested view controllers are considered children of the the parent view controller. 
+</code></pre>
+
+<p>Important features:</p>
+
+<ul>
+<li><p>Parent and child controllers connected by embedded segue:
+  The segue connecting the parent and children view controllers are called “embedded segues.” Embedded segues are fired immediately when the app starts so if you need to pass information from the parent controller to a child controller you can ether call the childviewcontrollers property on the parent controller, or you could also make the child view controller a property of the parent view controller and assign it in the prepare for segue method.</p></li>
+<li><p>View did load of child view controllers runs before view did load of parent
+  Another important feature of child view controllers is that their view did load methods are called before the view did load of the parent view controller. This means that if you want to access the parent view controller inside the view did load method of a child controller by calling the “parent viewcontroller&#8221; property it will return null. If you need to access the parent view controller you will have to do so after the lifecycle has completed.</p></li>
+<li><p>Must change background color to “clear color” for transparency
+Another helpful tip that gave me some trouble while working with container view controllers was making the view see through to the background of the parent view. For this I realized that change the alpha of the container view would make every thing in the child view transparent. What I realized is that you need to make both the background color of the container view and the child view “clear color”</p>
+
+<p>  Overall container view controllers are great for making seamless transitions while still retaining the same background view and logic. I was able to make my app much more modular and easy to read by breaking up each individual function into a distinct controller. Here is a picture of my storyboard before and after I broke it up:</p></li>
+</ul>
+
 </div>
 
 
@@ -118,7 +131,7 @@ once you&rsquo;ve got your app entirely hooked up to the database your all ready
   
 
 
-<time datetime="2014-07-13T20:06:31-04:00" pubdate data-updated="true">Jul 13<span>th</span>, 2014</time>
+<time datetime="2014-07-28T09:04:16-04:00" pubdate data-updated="true">Jul 28<span>th</span>, 2014</time>
       
 
 
@@ -126,7 +139,7 @@ once you&rsquo;ve got your app entirely hooked up to the database your all ready
     
       <div class="sharing">
   
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://clevin95.github.io/blog/2014/07/13/the-magic-of-parse/" data-via="" data-counturl="http://clevin95.github.io/blog/2014/07/13/the-magic-of-parse/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://clevin95.github.io/blog/2014/07/28/container-controllers/" data-via="" data-counturl="http://clevin95.github.io/blog/2014/07/28/container-controllers/" >Tweet</a>
   
   
   
@@ -135,10 +148,8 @@ once you&rsquo;ve got your app entirely hooked up to the database your all ready
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2014/07/06/making-a-drop-down-menu-with-uidynamics/" title="Previous Post: Making a drop down menu with UIDynamics">&laquo; Making a drop down menu with UIDynamics</a>
+        <a class="basic-alignment left" href="/blog/2014/07/13/the-magic-of-parse/" title="Previous Post: The magic of parse">&laquo; The magic of parse</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2014/07/28/container-controllers/" title="Next Post: Container controllers">Container controllers &raquo;</a>
       
     </p>
   </footer>

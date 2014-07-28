@@ -9,7 +9,7 @@
   <meta name="author" content="Carter">
 
   
-  <meta name="description" content="Recently I ran into a pretty common road block for most begginer iOS developers; I wanted to share information between a comunity of users but only &hellip;">
+  <meta name="description" content="Container View Controllers I was working on a project recently where I had only one screen which was responsible for performing several different &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -65,6 +65,59 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/07/28/container-controllers/">Container Controllers</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-28T09:04:16-04:00" pubdate data-updated="true">Jul 28<span>th</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Container View Controllers</p>
+
+<pre><code>I was working on a project recently where I had only one screen which was responsible for performing several different tasks. As I programmed, this screen’s view controller file quickly became massive and hard to read. Looking for a solution to this problem I came across container view controllers. Container view controllers allow you to separate the logic of a view controller and smaller more modular chunks. As of iOS 6 you can now drag out a container view object onto your storyboard. The container will effectively create a window to another view controller. You will then be able to create another view controller subclass where you can put all the logic for that separate view. A view controller can have any number of container view’s inside of it. Each of these nested view controllers are considered children of the the parent view controller. 
+</code></pre>
+
+<p>Important features:</p>
+
+<ul>
+<li><p>Parent and child controllers connected by embedded segue:
+  The segue connecting the parent and children view controllers are called “embedded segues.” Embedded segues are fired immediately when the app starts so if you need to pass information from the parent controller to a child controller you can ether call the childviewcontrollers property on the parent controller, or you could also make the child view controller a property of the parent view controller and assign it in the prepare for segue method.</p></li>
+<li><p>View did load of child view controllers runs before view did load of parent
+  Another important feature of child view controllers is that their view did load methods are called before the view did load of the parent view controller. This means that if you want to access the parent view controller inside the view did load method of a child controller by calling the “parent viewcontroller&#8221; property it will return null. If you need to access the parent view controller you will have to do so after the lifecycle has completed.</p></li>
+<li><p>Must change background color to “clear color” for transparency
+Another helpful tip that gave me some trouble while working with container view controllers was making the view see through to the background of the parent view. For this I realized that change the alpha of the container view would make every thing in the child view transparent. What I realized is that you need to make both the background color of the container view and the child view “clear color”</p>
+
+<p>  Overall container view controllers are great for making seamless transitions while still retaining the same background view and logic. I was able to make my app much more modular and easy to read by breaking up each individual function into a distinct controller. Here is a picture of my storyboard before and after I broke it up:</p></li>
+</ul>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -690,6 +743,10 @@ return runningLongest;
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/07/28/container-controllers/">Container Controllers</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/07/13/the-magic-of-parse/">The Magic of Parse</a>
       </li>
     
@@ -703,10 +760,6 @@ return runningLongest;
     
       <li class="post">
         <a href="/blog/2014/06/23/making-custom-ios-keyboards/">Making Custom iOS Keyboards</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/06/15/the-words/">The Words</a>
       </li>
     
   </ul>
